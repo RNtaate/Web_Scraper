@@ -2,8 +2,8 @@ require 'nokogiri'
 require 'open-uri'
 
 class Movie
-  def initialize(link)
-    @doc = Nokogiri::HTML(URI.open(link))
+  def initialize
+    @doc = ''
     @string = ''
   end
 
@@ -15,17 +15,18 @@ class Movie
     string
   end
 
-  def display_movie_content
+  def display_movie_content(link)
+    @doc = Nokogiri::HTML(URI.open(link))
     "
     ---------Movie Information----------
 
     #{get_movie_content('h1.title-title').upcase}
 
-    Overview :
+    Overview    : 
     #{get_movie_content('div.title-info-synopsis')}
 
 
-    #{get_movie_content('span.title-data-info-item-label', 'span.title-data-info-item-list')}
+    Strarring   : #{get_movie_content( 'span.title-data-info-item-list')}
 
     Duration    : #{get_movie_content('span.duration')}
     Release Year: #{get_movie_content('span.item-year')}
