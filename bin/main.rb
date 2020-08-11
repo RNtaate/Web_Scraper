@@ -36,6 +36,13 @@ class Scraper
     @choice = gets.chomp
   end
 
+  def fetch_category_content
+    @category_names = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_NAME)
+
+    @categories = FetchContent.get_content(FetchMessages::MAIN_LINK,
+                                           FetchMessages::CATEGORY_SECTION)
+  end
+
   def display_list(node_set_array)
     node_set_array.length.times do |i|
       word = '' + node_set_array[i].content
@@ -58,11 +65,7 @@ class Scraper
 
     puts ' '
     puts 'Fetching content ...'
-
-    @category_names = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_NAME)
-
-    @categories = FetchContent.get_content(FetchMessages::MAIN_LINK,
-                                           FetchMessages::CATEGORY_SECTION)
+    fetch_category_content
 
     while @choice.downcase == 'y' or @choice.downcase == 'yes'
       puts ' '
@@ -76,17 +79,17 @@ class Scraper
       print 'Enter your choice of category here : '
       @number = gets.chomp.to_i
 
-      while !(FetchContent.validate_input(@category_names, @number))
+      until FetchContent.validate_input(@category_names, @number)
         validate_messages
         @number = gets.chomp.to_i
       end
 
       @number -= 1
       @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
-      
+
       puts ' '
-      cat_name = "" + @category_names[@number].content + " category : "
-      cat_name.gsub!("Explore more")
+      cat_name = '' + @category_names[@number].content + ' category : '
+      cat_name.gsub!('Explore more', '')
       puts cat_name
       puts ' '
       display_list(@movies_list)
@@ -95,7 +98,7 @@ class Scraper
       print 'Enter your choice of movie here: '
       @movie_number = gets.chomp.to_i
 
-      while !(FetchContent.validate_input(@movies_list, @movie_number))
+      until FetchContent.validate_input(@movies_list, @movie_number)
         validate_messages
         @movie_number = gets.chomp.to_i
       end
@@ -109,8 +112,8 @@ class Scraper
 
       proceed_choice
     end
-    puts' '
-    puts "Thank you for visiting us! **GOOD BYE**"
+    puts ' '
+    puts 'Thank you for visiting us! **GOOD BYE**'
   end
 end
 

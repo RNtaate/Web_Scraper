@@ -17,6 +17,7 @@ class FetchContent
 
   def self.validate_input(list, number)
     return true if (1..list.length).include? number
+
     false
   end
 end
