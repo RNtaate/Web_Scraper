@@ -14,6 +14,7 @@ class Scraper
     @choice = ''
     @number = 0
     @movie_number = 0
+    @movie_information = Movie.new
   end
 
   def welcome
@@ -37,9 +38,10 @@ class Scraper
 
   def display_list(node_set_array)
     node_set_array.length.times do |i|
-      word = "" + node_set_array[i].content
-      word.gsub!("Explore more", "")
-      puts "#{i + 1}    #{word}"
+      word = '' + node_set_array[i].content
+      word.gsub!('Explore more', '')
+      word = "#{i + 1}.)\t" + word
+      puts word
     end
   end
 
@@ -58,17 +60,31 @@ class Scraper
 
     puts ' '
     puts "The following are the Categories available on NETFLIX.\n"
+    puts ' '
     puts 'Please select a number of your choice to view the movies in that category.'
 
     display_list(@category_names)
 
     puts ' '
-    puts 'Enter your choice of category here : '
+    print 'Enter your choice of category here : '
     @number = gets.chomp.to_i
     @number -= 1
     @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
-
+    
+    puts ' '
+    puts "#{("" + @category_names[@number].content).gsub!("Explore more", "")} Category : "
+    puts ' '
     display_list(@movies_list)
+
+    puts ' '
+    print 'Enter your choice of movie here: '
+    @movie_number = gets.chomp.to_i
+    @movie_number -= 1
+    @movie = @movies_list[@movie_number]['href']
+    puts ' '
+    puts 'Fetching movie content ...'
+
+    puts @movie_information.display_movie_content(@movie)
   end
 end
 

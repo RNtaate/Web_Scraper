@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require_relative 'fetch_messages.rb'
 
 class Movie
   def initialize
@@ -20,17 +21,17 @@ class Movie
     "
     ---------Movie Information----------
 
-    #{get_movie_content('h1.title-title').upcase}
+    #{get_movie_content(FetchMessages::MOVIE_TITLE).upcase}
 
-    Overview    : 
-    #{get_movie_content('div.title-info-synopsis')}
+    Overview    :
+    #{get_movie_content(FetchMessages::MOVIE_OVERVIEW)}
 
 
-    Strarring   : #{get_movie_content( 'span.title-data-info-item-list')}
+    Strarring   : #{get_movie_content(FetchMessages::MOVIE_STARS)}
 
-    Duration    : #{get_movie_content('span.duration')}
-    Release Year: #{get_movie_content('span.item-year')}
-    Genre       : #{get_movie_content('a.item-genre')}
-    Age Limit   : #{get_movie_content('span.maturity-number')}"
+    Duration    : #{get_movie_content(FetchMessages::MOVIE_DURATION)}
+    Release Year: #{get_movie_content(FetchMessages::MOVIE_YEAR)}
+    Genre       : #{get_movie_content(FetchMessages::MOVIE_GENRE)}
+    Age Limit   : #{get_movie_content(FetchMessages::MOVIE_AGE)}"
   end
 end
