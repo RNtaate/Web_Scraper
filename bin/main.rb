@@ -9,8 +9,10 @@ class Scraper
     @category_names = ''
     @categories = ''
     @movies_list = ''
+    @movie = ''
     @choice = ''
     @number = 0
+    @movie_number = 0
   end
 
   def welcome
@@ -47,13 +49,23 @@ class Scraper
 
       @category_names = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_NAME)
 
-      @categories = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_SECTION)
+      @categories = FetchContent.get_content(FetchMessages::MAIN_LINK,
+        FetchMessages::CATEGORY_SECTION)
 
       puts " "
       puts "The following are the Categories available on NETFLIX.\n"
       puts "Please select a number of your choice to view the movies in that category."
 
       display_list(@category_names)
+
+
+      puts " "
+      puts "Enter your choice of category here : "
+      @number = gets.chomp.to_i
+      @number = @number - 1
+      @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
+
+      display_list(@movies_list)
     end
   end
 end

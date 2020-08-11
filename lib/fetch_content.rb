@@ -9,4 +9,9 @@ class FetchContent
     list = doc.css(*selectors)
     list
   end
+
+  def self.get_inner_content(list, number, selector)
+    another_list = list[number].css(selector)
+    return another_list
+  end
 end
