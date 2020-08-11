@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'open-uri'
 require './lib/fetch_content.rb'
 require './lib/fetch_messages.rb'
+require './lib/fetch_movie.rb'
 
 class Scraper
   def initialize
