@@ -1,0 +1,3 @@
+module UserMessages
+  
+end
