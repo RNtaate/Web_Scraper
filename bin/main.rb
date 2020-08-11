@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
+require 'nokogiri'
+require 'open-uri'
+require './lib/fetch_content.rb'
+require './lib/fetch_messages.rb'
 
 class Scraper
   def initialize
@@ -33,3 +37,4 @@ class Scraper
     end
   end
 end
+
