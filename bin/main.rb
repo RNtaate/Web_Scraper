@@ -37,37 +37,38 @@ class Scraper
 
   def display_list(node_set_array)
     node_set_array.length.times do |i|
-      puts "#{i + 1}    #{node_set_array[i].content}"
+      word = "" + node_set_array[i].content
+      word.gsub!("Explore more", "")
+      puts "#{i + 1}    #{word}"
     end
   end
 
   def run
     welcome
     proceed_choice
-    if @choice.downcase == 'y' or @choice.downcase == "yes"
-      puts " "
-      puts "Fetching content ..."
+    return unless @choice.downcase == 'y' or @choice.downcase == 'yes'
 
-      @category_names = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_NAME)
+    puts ' '
+    puts 'Fetching content ...'
 
-      @categories = FetchContent.get_content(FetchMessages::MAIN_LINK,
-        FetchMessages::CATEGORY_SECTION)
+    @category_names = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_NAME)
 
-      puts " "
-      puts "The following are the Categories available on NETFLIX.\n"
-      puts "Please select a number of your choice to view the movies in that category."
+    @categories = FetchContent.get_content(FetchMessages::MAIN_LINK,
+                                           FetchMessages::CATEGORY_SECTION)
 
-      display_list(@category_names)
+    puts ' '
+    puts "The following are the Categories available on NETFLIX.\n"
+    puts 'Please select a number of your choice to view the movies in that category.'
 
+    display_list(@category_names)
 
-      puts " "
-      puts "Enter your choice of category here : "
-      @number = gets.chomp.to_i
-      @number = @number - 1
-      @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
+    puts ' '
+    puts 'Enter your choice of category here : '
+    @number = gets.chomp.to_i
+    @number -= 1
+    @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
 
-      display_list(@movies_list)
-    end
+    display_list(@movies_list)
   end
 end
 

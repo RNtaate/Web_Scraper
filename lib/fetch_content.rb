@@ -12,6 +12,6 @@ class FetchContent
 
   def self.get_inner_content(list, number, selector)
     another_list = list[number].css(selector)
-    return another_list
+    another_list
   end
 end
