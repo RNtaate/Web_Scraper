@@ -10,6 +10,7 @@ class Scraper
     @categories = ''
     @movies_list = ''
     @choice = ''
+    @number = 0
   end
 
   def welcome
@@ -36,5 +37,27 @@ class Scraper
       puts "#{i + 1}    #{node_set_array[i].content}"
     end
   end
+
+  def run
+    welcome
+    proceed_choice
+    if @choice.downcase == 'y' or @choice.downcase == "yes"
+      puts " "
+      puts "Fetching content ..."
+
+      @category_names = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_NAME)
+
+      @categories = FetchContent.get_content(FetchMessages::MAIN_LINK, FetchMessages::CATEGORY_SECTION)
+
+      puts " "
+      puts "The following are the Categories available on NETFLIX.\n"
+      puts "Please select a number of your choice to view the movies in that category."
+
+      display_list(@category_names)
+    end
+  end
 end
 
+sm = Scraper.new
+
+sm.run
