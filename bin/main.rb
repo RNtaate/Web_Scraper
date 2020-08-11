@@ -64,45 +64,53 @@ class Scraper
     @categories = FetchContent.get_content(FetchMessages::MAIN_LINK,
                                            FetchMessages::CATEGORY_SECTION)
 
-    puts ' '
-    puts "The following are the Categories available on NETFLIX.\n"
-    puts ' '
-    puts 'Please select a number of your choice to view the movies in that category.'
+    while @choice.downcase == 'y' or @choice.downcase == 'yes'
+      puts ' '
+      puts "The following are the Categories available on NETFLIX.\n"
+      puts ' '
+      puts 'Please select a number of your choice to view the movies in that category.'
 
-    display_list(@category_names)
+      display_list(@category_names)
 
-    puts ' '
-    print 'Enter your choice of category here : '
-    @number = gets.chomp.to_i
-
-    while !(FetchContent.validate_input(@category_names, @number))
-      validate_messages
+      puts ' '
+      print 'Enter your choice of category here : '
       @number = gets.chomp.to_i
-    end
 
-    @number -= 1
-    @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
-    
-    puts ' '
-    puts "#{("" + @category_names[@number].content).gsub!("Explore more", "")} Category : "
-    puts ' '
-    display_list(@movies_list)
+      while !(FetchContent.validate_input(@category_names, @number))
+        validate_messages
+        @number = gets.chomp.to_i
+      end
 
-    puts ' '
-    print 'Enter your choice of movie here: '
-    @movie_number = gets.chomp.to_i
+      @number -= 1
+      @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
+      
+      puts ' '
+      cat_name = "" + @category_names[@number].content + " category : "
+      cat_name.gsub!("Explore more")
+      puts cat_name
+      puts ' '
+      display_list(@movies_list)
 
-    while !(FetchContent.validate_input(@movies_list, @movie_number))
-      validate_messages
+      puts ' '
+      print 'Enter your choice of movie here: '
       @movie_number = gets.chomp.to_i
+
+      while !(FetchContent.validate_input(@movies_list, @movie_number))
+        validate_messages
+        @movie_number = gets.chomp.to_i
+      end
+
+      @movie_number -= 1
+      @movie = @movies_list[@movie_number]['href']
+      puts ' '
+      puts 'Fetching movie content ...'
+
+      puts @movie_information.display_movie_content(@movie)
+
+      proceed_choice
     end
-
-    @movie_number -= 1
-    @movie = @movies_list[@movie_number]['href']
-    puts ' '
-    puts 'Fetching movie content ...'
-
-    puts @movie_information.display_movie_content(@movie)
+    puts' '
+    puts "Thank you for visiting us! **GOOD BYE**"
   end
 end
 
