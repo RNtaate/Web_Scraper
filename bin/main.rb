@@ -5,6 +5,7 @@ class Scraper
   def initialize 
     @category_names = ""
     @categories = ""
+    @movies_list = ""
     @choice = ""
   end
 
@@ -25,6 +26,12 @@ class Scraper
     puts " "
     print "Enter \"y\" or \"yes\" if you wish to continue, and any other key otherwise. : "
     @choice = gets.chomp
+  end
+
+  def display_list(node_set_array)
+    node_set_array.length.times do |i|
+      puts "#{i + 1}    #{node_set_array[i].content}"
+    end
   end
 end
 
