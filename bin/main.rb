@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
+# rubocop:disable Metrics/MethodLength
 require 'nokogiri'
 require 'open-uri'
 require './lib/fetch_content.rb'
 require './lib/fetch_messages.rb'
 require './lib/fetch_movie.rb'
+require './lib/user_messages.rb'
 
 class Scraper
   def initialize
@@ -58,25 +60,28 @@ class Scraper
     print 'Enter a valid above list number : '
   end
 
+  def specify_category_name(list, number)
+    cat_name = '' + list[number].content + ' category : '
+    cat_name.gsub!('Explore more', '')
+    cat_name = "
+    #{cat_name}
+    "
+    cat_name
+  end
+
   def run
     welcome
     proceed_choice
     return unless @choice.downcase == 'y' or @choice.downcase == 'yes'
 
-    puts ' '
-    puts 'Fetching content ...'
+    puts UserMessages::FETCHING_CONTENT_MESSAGE
     fetch_category_content
 
     while @choice.downcase == 'y' or @choice.downcase == 'yes'
-      puts ' '
-      puts "The following are the Categories available on NETFLIX.\n"
-      puts ' '
-      puts 'Please select a number of your choice to view the movies in that category.'
-
+      puts UserMessages::CATEGORY_LIST_MESSAGE
       display_list(@category_names)
 
-      puts ' '
-      print 'Enter your choice of category here : '
+      print UserMessages::CATEGORY_CHOICE
       @number = gets.chomp.to_i
 
       until FetchContent.validate_input(@category_names, @number)
@@ -87,15 +92,10 @@ class Scraper
       @number -= 1
       @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
 
-      puts ' '
-      cat_name = '' + @category_names[@number].content + ' category : '
-      cat_name.gsub!('Explore more', '')
-      puts cat_name
-      puts ' '
+      puts specify_category_name(@category_names, @number)
       display_list(@movies_list)
 
-      puts ' '
-      print 'Enter your choice of movie here: '
+      print UserMessages::MOVIE_CHOICE
       @movie_number = gets.chomp.to_i
 
       until FetchContent.validate_input(@movies_list, @movie_number)
@@ -105,8 +105,7 @@ class Scraper
 
       @movie_number -= 1
       @movie = @movies_list[@movie_number]['href']
-      puts ' '
-      puts 'Fetching movie content ...'
+      puts UserMessages::FETCHING_MOVIE_MESSAGE
 
       puts @movie_information.display_movie_content(@movie)
 
@@ -116,6 +115,7 @@ class Scraper
     puts 'Thank you for visiting us! **GOOD BYE**'
   end
 end
+# rubocop:enable Metrics/MethodLength
 
 sm = Scraper.new
 
