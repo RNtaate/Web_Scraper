@@ -2,6 +2,12 @@
 
 class Scraper
 
+  def initialize 
+    @category_names = ""
+    @categories = ""
+    @choice = ""
+  end
+
   def welcome
     puts "
                         Welcome to NORP FLIX
@@ -12,11 +18,13 @@ class Scraper
                 from the provided list of that category and 
                       receive information about it
     ====================================================================
-    
     "
+  end
+
+  def proceed_choice
+    puts " "
+    print "Enter \"y\" or \"yes\" if you wish to continue, and any other key otherwise. : "
+    @choice = gets.chomp
   end
 end
 
-sm = Scraper.new
-
-sm.welcome
