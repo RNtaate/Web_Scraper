@@ -1,0 +1,1 @@
+require './lib/fetch_content.rb'
