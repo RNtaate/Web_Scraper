@@ -19,6 +19,7 @@ class Scraper
     @movie_information = Movie.new
   end
 
+  private
   def welcome
     puts "
                         Welcome to NORP FLIX
@@ -69,6 +70,7 @@ class Scraper
     cat_name
   end
 
+  public
   def run
     welcome
     proceed_choice
