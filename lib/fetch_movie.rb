@@ -19,7 +19,7 @@ class Movie
   def display_movie_content(link)
     @doc = Nokogiri::HTML(URI.open(link))
     "
-    ---------Movie Information----------
+    ----------Movie Information-----------
 
     #{get_movie_content(FetchMessages::MOVIE_TITLE).upcase}
 
@@ -32,6 +32,9 @@ class Movie
     Duration    : #{get_movie_content(FetchMessages::MOVIE_DURATION)}
     Release Year: #{get_movie_content(FetchMessages::MOVIE_YEAR)}
     Genre       : #{get_movie_content(FetchMessages::MOVIE_GENRE)}
-    Age Limit   : #{get_movie_content(FetchMessages::MOVIE_AGE)}"
+    Age Limit   : #{get_movie_content(FetchMessages::MOVIE_AGE)}
+
+    ------------Information End-------------
+    "
   end
 end
