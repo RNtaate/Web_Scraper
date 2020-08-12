@@ -29,9 +29,17 @@ The Scraper presents retrieved data to the user in 3 phases all of which depend 
 - **Phase 3** : Information about **A MOVIE** from the list of movies in **Phase 2**
 
 
- CATEGORIES | MOVIE LIST | MOVIE INFORMATION
- ---------- | ---------- | ------------------
-  ![](images/scraper1.png) | ![](images/scraper2.png) | ![](images/scraper3.png)
+  CATEGORIES |
+  -----------|
+  ![](images/scraper1.png) |
+  
+  MOVIE LIST |
+  -----------|
+  ![](images/scraper2.png) |
+  
+  MOVIE INFORMATION |
+  ------------------|
+  ![](images/scraper3.png) |
 
 
   ## Built With
