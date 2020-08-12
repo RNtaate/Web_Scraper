@@ -1,4 +1,17 @@
 module UserMessages
+  WELCOME_MESSAGE = '
+                      Welcome to NORP FLIX
+                      ********************
+      A place of information about the available NETFLIX movies
+
+    Simply select a category from the category list, choose a movie
+              from the provided list of that category and
+                    receive information about it
+====================================================================
+'
+  VALIDATE_MESSAGE = '
+Invalid input, input entered is either not a number or is out of list range.
+Enter a valid above list number : '
   FETCHING_CONTENT_MESSAGE = '
 Fetching content ...'.freeze
   CATEGORY_LIST_MESSAGE = '
