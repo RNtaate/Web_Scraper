@@ -1,5 +1,7 @@
 # Web_Scraper
 
+![Linters](https://github.com/RNtaate/Web_Scraper/workflows/Linters/badge.svg)
+
 > This project is a ruby capstone project from the [Microverse](https://www.microverse.org/) technical curriculum
 
 ## Contents
