@@ -20,6 +20,7 @@ class Scraper
   end
 
   private
+
   def welcome
     puts "
                         Welcome to NORP FLIX
@@ -71,6 +72,7 @@ class Scraper
   end
 
   public
+
   def run
     welcome
     proceed_choice
