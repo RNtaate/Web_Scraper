@@ -1,5 +1,6 @@
 require 'rspec'
 require 'nokogiri'
+require 'open-uri'
 require './lib/fetch_content.rb'
 
 describe FetchContent do
@@ -11,5 +12,14 @@ describe FetchContent do
       expect(FetchContent.get_content(web_link, 'h1')[0].content).to eql("NORP ELECTRONICS")
     end
 
+  end
+
+  describe ".get_inner_content" do
+    
+    it "Returns a new NodeSet when given, a NodeSet, a number, and a css selector string as arguments" do
+      doc = Nokogiri::HTML(URI.open(web_link))
+      list = doc.css('div.section-heading-div')
+      expect(FetchContent.get_inner_content(list, 0, 'h6')[0].content).to eql("Home Sytems")
+    end
   end
 end
