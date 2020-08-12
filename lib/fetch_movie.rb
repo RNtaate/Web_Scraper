@@ -3,8 +3,8 @@ require 'open-uri'
 require_relative 'fetch_messages.rb'
 
 class Movie
-  def initialize
-    @doc = ''
+  def initialize(link_string = nil)
+    @doc = link_string.nil? ? '' : Nokogiri::HTML(URI.open(link_string))
     @string = ''
   end
 
