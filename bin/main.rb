@@ -15,23 +15,13 @@ class Scraper
     @movie = ''
     @choice = ''
     @number = 0
-    @movie_number = 0
     @movie_information = Movie.new
   end
 
   private
 
   def welcome
-    puts "
-                        Welcome to NORP FLIX
-                        ********************
-        A place of information about the available NETFLIX movies
-
-      Simply select a category from the category list, choose a movie
-                from the provided list of that category and
-                      receive information about it
-    ====================================================================
-    "
+    puts UserMessages::WELCOME_MESSAGE
   end
 
   def proceed_choice
@@ -56,10 +46,15 @@ class Scraper
     end
   end
 
-  def validate_messages
-    puts ' '
-    puts 'Invalid input, input entered is either not a number or is out of list range.'
-    print 'Enter a valid above list number : '
+  def check_input(list, value)
+    number = value
+
+    until FetchContent.validate_input(list, number)
+      print UserMessages::VALIDATE_MESSAGE
+      number = gets.chomp.to_i
+    end
+
+    number
   end
 
   def specify_category_name(list, number)
@@ -88,10 +83,7 @@ class Scraper
       print UserMessages::CATEGORY_CHOICE
       @number = gets.chomp.to_i
 
-      until FetchContent.validate_input(@category_names, @number)
-        validate_messages
-        @number = gets.chomp.to_i
-      end
+      @number = check_input(@category_names, @number)
 
       @number -= 1
       @movies_list = FetchContent.get_inner_content(@categories, @number, 'a')
@@ -100,15 +92,12 @@ class Scraper
       display_list(@movies_list)
 
       print UserMessages::MOVIE_CHOICE
-      @movie_number = gets.chomp.to_i
+      @number = gets.chomp.to_i
 
-      until FetchContent.validate_input(@movies_list, @movie_number)
-        validate_messages
-        @movie_number = gets.chomp.to_i
-      end
+      @number = check_input(@movies_list, @number)
 
-      @movie_number -= 1
-      @movie = @movies_list[@movie_number]['href']
+      @number -= 1
+      @movie = @movies_list[@number]['href']
       puts UserMessages::FETCHING_MOVIE_MESSAGE
 
       puts @movie_information.display_movie_content(@movie)

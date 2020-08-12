@@ -8,10 +8,10 @@ module UserMessages
               from the provided list of that category and
                     receive information about it
 ====================================================================
-'
+'.freeze
   VALIDATE_MESSAGE = '
 Invalid input, input entered is either not a number or is out of list range.
-Enter a valid above list number : '
+Enter a valid above list number : '.freeze
   FETCHING_CONTENT_MESSAGE = '
 Fetching content ...'.freeze
   CATEGORY_LIST_MESSAGE = '
