@@ -8,6 +8,8 @@ class Movie
     @string = ''
   end
 
+  private
+
   def get_movie_content(*selector)
     string = ''
     @doc.css(*selector).each do |item|
@@ -16,6 +18,8 @@ class Movie
     string
   end
 
+  public
+  
   def display_movie_content(link)
     @doc = Nokogiri::HTML(URI.open(link))
     "
