@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/MethodLength
 require 'nokogiri'
 require 'open-uri'
 require_relative 'fetch_content.rb'
@@ -65,16 +64,7 @@ class Scraper
     cat_name
   end
 
-  public
-
-  def run
-    welcome
-    proceed_choice
-    return unless @choice.downcase == 'y' or @choice.downcase == 'yes'
-
-    puts UserMessages::FETCHING_CONTENT_MESSAGE
-    fetch_category_content
-
+  def run_received_content
     while @choice.downcase == 'y' or @choice.downcase == 'yes'
       puts UserMessages::CATEGORY_LIST_MESSAGE
       display_list(@category_names)
@@ -103,8 +93,21 @@ class Scraper
 
       proceed_choice
     end
+  end
+
+  public
+
+  def run
+    welcome
+    proceed_choice
+    return unless @choice.downcase == 'y' or @choice.downcase == 'yes'
+
+    puts UserMessages::FETCHING_CONTENT_MESSAGE
+    fetch_category_content
+
+    run_received_content
+
     puts ' '
     puts 'Thank you for visiting us! **GOOD BYE**'
   end
 end
-# rubocop:enable Metrics/MethodLength
