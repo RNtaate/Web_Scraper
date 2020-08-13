@@ -19,7 +19,7 @@ class Movie
   end
 
   public
-  
+
   def display_movie_content(link)
     @doc = Nokogiri::HTML(URI.open(link))
     "
