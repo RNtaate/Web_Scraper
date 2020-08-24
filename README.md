@@ -67,7 +67,17 @@ The Scraper presents retrieved data to the user in 3 phases all of which depend 
 1. You should have [Ruby](https://www.ruby-lang.org/en/) installed on your computer.
 1. Your computer should be able to run `terminal` or `command prompt` or `bash` or `Powershell` commands.
 
-#### Using a Repository
+#### A. 1. Using the Release tag
+1. [Click Here](https://github.com/RNtaate/Web_Scraper/releases/tag/v1.0.0-beta) to download the zip file of this Scraper.
+1. Unzip the downloaded file to a folder of your choice.
+1. Open terminal and navigate to folder containing the unzipped file using `cd`
+1. Run the following command to start the Scraper.
+```bash
+  bin/main.rb
+```
+5. At this point, you should see a welcome message indicating the Scraper has opened.
+
+#### A. 2. Using a Repository
 1. Run this command `git clone https://github.com/RNtaate/Web_Scraper.git` to clone the repository on to your local machine.
 1. Run `cd Web_Scraper` to enter into the scraper folder
 1. Run the following command to deploy the scraper
